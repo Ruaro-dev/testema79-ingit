@@ -1,0 +1,166 @@
+/* Paleta Institucional WEG */
+:root {
+    --weg-azul-principal: #00579D;
+    --weg-azul-escuro: #003B70;
+    --weg-azul-claro: #E6F0F8;
+    --weg-cinza-fundo: #F4F6F9;
+    --weg-cinza-borda: #D9E0E7;
+    --weg-texto-escuro: #1F2933;
+    --weg-texto-suave: #52606D;
+    --weg-branco: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--weg-cinza-fundo);
+    color: var(--weg-texto-escuro);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Cabeçalho */
+.topo {
+    background: linear-gradient(135deg, var(--weg-azul-escuro) 0%, var(--weg-azul-principal) 100%);
+    color: var(--weg-branco);
+    padding: 48px 0;
+    border-bottom: 5px solid #0072CE;
+}
+
+.badge-local {
+    display: inline-block;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
+
+.topo h1 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subtitulo {
+    font-size: 1.05rem;
+    color: #DCE9F5;
+    max-width: 750px;
+}
+
+/* Cartões de Conteúdo */
+main {
+    padding: 32px 0;
+}
+
+.card {
+    background-color: var(--weg-branco);
+    border: 1px solid var(--weg-cinza-borda);
+    border-left: 4px solid var(--weg-azul-principal);
+    border-radius: 6px;
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 6px rgba(0, 59, 112, 0.05);
+}
+
+.card h2 {
+    color: var(--weg-azul-escuro);
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--weg-cinza-borda);
+}
+
+.card p {
+    margin-bottom: 12px;
+    color: var(--weg-texto-escuro);
+}
+
+/* Grid explicativo das funções */
+.grid-funcoes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.item-funcao {
+    background-color: var(--weg-cinza-fundo);
+    border: 1px solid var(--weg-cinza-borda);
+    border-radius: 6px;
+    padding: 16px;
+}
+
+.item-funcao h3 {
+    color: var(--weg-azul-principal);
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+}
+
+.item-funcao p {
+    font-size: 0.92rem;
+    color: var(--weg-texto-suave);
+    margin-bottom: 0;
+}
+
+/* Formatação de Código */
+code {
+    font-family: 'Consolas', 'Courier New', monospace;
+    background-color: var(--weg-azul-claro);
+    color: var(--weg-azul-escuro);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.92em;
+}
+
+pre {
+    background-color: #0F1E2E;
+    color: #E6EDF3;
+    padding: 20px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin-top: 14px;
+    border: 1px solid var(--weg-azul-escuro);
+}
+
+pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Destaque de Localização */
+.destaque-local {
+    background-color: var(--weg-azul-claro);
+    border-left-color: var(--weg-azul-escuro);
+}
+
+.info-local p {
+    margin-bottom: 6px;
+}
+
+/* Rodapé */
+.rodape {
+    background-color: var(--weg-azul-escuro);
+    color: #B8CFE5;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9rem;
+    margin-top: 20px;
+}

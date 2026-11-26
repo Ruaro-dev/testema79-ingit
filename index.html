@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação - Cadastro de Motores em Python | CentroWEG</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="topo">
+        <div class="container">
+            <div class="badge-local">CentroWEG • SENAI • Jaraguá do Sul - SC</div>
+            <h1>Sistema de Cadastro de Motores em Python</h1>
+            <p class="subtitulo">Documentação técnica do protótipo monolítico em memória desenvolvido para testes de lógica e estruturas de dados.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <section class="card">
+            <h2>Sobre o Projeto e Contexto</h2>
+            <p>
+                Este script foi desenvolvido como atividade prática no <strong>CentroWEG</strong>, unidade do <strong>SENAI</strong> localizada dentro do parque fabril da <strong>WEG</strong> em <strong>Jaraguá do Sul, Santa Catarina</strong>.
+            </p>
+            <p>
+                O objetivo do código é simular um sistema básico de gestão de motores elétricos utilizando apenas recursos nativos do Python, sem dependência de bancos de dados externos, ideal para validação rápida de regras de negócio no terminal.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>Arquitetura e Funcionamento do Código</h2>
+            <p>O sistema é dividido em blocos funcionais que operam sobre uma estrutura central em memória:</p>
+            
+            <div class="grid-funcoes">
+                <div class="item-funcao">
+                    <h3><code>motores = []</code></h3>
+                    <p>Array (lista) global que armazena dicionários, onde cada dicionário representa um motor com código, modelo, potência, tensão e rotação.</p>
+                </div>
+                <div class="item-funcao">
+                    <h3><code>cadastrar_motor()</code></h3>
+                    <p>Coleta os dados via terminal, verifica se o código de série já existe para evitar duplicidade e adiciona o registro na lista.</p>
+                </div>
+                <div class="item-funcao">
+                    <h3><code>listar_motores()</code></h3>
+                    <p>Percorre o array utilizando <code>enumerate()</code> e exibe todos os motores cadastrados de forma organizada.</p>
+                </div>
+                <div class="item-funcao">
+                    <h3><code>buscar_motor()</code></h3>
+                    <p>Realiza uma filtragem por substring (case-insensitive) buscando correspondências tanto no código quanto no modelo do motor.</p>
+                </div>
+                <div class="item-funcao">
+                    <h3><code>remover_motor()</code></h3>
+                    <p>Localiza o registro pelo código informado e remove o item da memória utilizando o método <code>.pop()</code>.</p>
+                </div>
+                <div class="item-funcao">
+                    <h3><code>menu()</code></h3>
+                    <p>Mantém um laço infinito (<code>while True</code>) exibindo as opções interativas até que o usuário escolha encerrar o programa.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Código-Fonte (<code>cadastro_motores.py</code>)</h2>
+            <p>Abaixo está o código completo utilizado no protótipo:</p>
+            <pre><code># Lista (array) que armazena os motores em memória durante a execução
+motores = []
+
+def cadastrar_motor():
+    print("\n--- CADASTRAR NOVO MOTOR ---")
+    codigo = input("Código/Série do motor: ").strip()
+
+    for m in motores:
+        if m["codigo"].lower() == codigo.lower():
+            print("Erro: Já existe um motor cadastrado com esse código!")
+            return
+
+    modelo = input("Modelo (ex: W22 IR3): ").strip()
+    potencia = input("Potência (ex: 5 CV / 3.7 kW): ").strip()
+    tensao = input("Tensão (ex: 220/380V): ").strip()
+    rotacao = input("Rotação (ex: 1750 RPM): ").strip()
+
+    motor = {
+        "codigo": codigo,
+        "modelo": modelo,
+        "potencia": potencia,
+        "tensao": tensao,
+        "rotacao": rotacao,
+    }
+
+    motores.append(motor)
+    print(f"Motor '{modelo}' (Cód: {codigo}) cadastrado com sucesso!")
+
+def listar_motores():
+    print("\n--- LISTA DE MOTORES CADASTRADOS ---")
+    if not motores:
+        print("Nenhum motor cadastrado ainda.")
+        return
+
+    for i, m in enumerate(motores, start=1):
+        print(
+            f"{i}. Cód: {m['codigo']} | Modelo: {m['modelo']} | "
+            f"Potência: {m['potencia']} | Tensão: {m['tensao']} | RPM: {m['rotacao']}"
+        )
+
+def buscar_motor():
+    print("\n--- BUSCAR MOTOR ---")
+    termo = input("Digite o código ou modelo para buscar: ").strip().lower()
+
+    encontrados = [
+        m for m in motores
+        if termo in m["codigo"].lower() or termo in m["modelo"].lower()
+    ]
+
+    if not encontrados:
+        print("Nenhum motor encontrado com esse termo.")
+        return
+
+    for m in encontrados:
+        print(
+            f"-> Cód: {m['codigo']} | Modelo: {m['modelo']} | "
+            f"Potência: {m['potencia']} | Tensão: {m['tensao']} | RPM: {m['rotacao']}"
+        )
+
+def remover_motor():
+    print("\n--- REMOVER MOTOR ---")
+    codigo = input("Digite o código do motor que deseja remover: ").strip()
+
+    for i, m in enumerate(motores):
+        if m["codigo"].lower() == codigo.lower():
+            removido = motores.pop(i)
+            print(f"Motor '{removido['modelo']}' removido com sucesso!")
+            return
+
+    print("Motor não encontrado.")
+
+def menu():
+    while True:
+        print("\n==============================")
+        print("   SISTEMA DE MOTORES (TESTE)")
+        print("==============================")
+        print("1 - Cadastrar motor")
+        print("2 - Listar todos os motores")
+        print("3 - Buscar motor")
+        print("4 - Remover motor")
+        print("0 - Sair")
+
+        opcao = input("Escolha uma opção: ").strip()
+
+        if opcao == "1":
+            cadastrar_motor()
+        elif opcao == "2":
+            listar_motores()
+        elif opcao == "3":
+            buscar_motor()
+        elif opcao == "4":
+            remover_motor()
+        elif opcao == "0":
+            print("Encerrando o sistema. PLAU!")
+            break
+        else:
+            print("Opção inválida! Tente novamente.")
+
+if __name__ == "__main__":
+    menu()</code></pre>
+        </section>
+
+        <section class="card destaque-local">
+            <h2>Onde foi desenvolvido</h2>
+            <div class="info-local">
+                <div>
+                    <p><strong>Instituição:</strong> CentroWEG (Parceria SENAI / WEG)</p>
+                    <p><strong>Localização:</strong> Av. Prefeito Waldemar Grubba, 3300 - Vila Lalau, Jaraguá do Sul - SC</p>
+                    <p><strong>Ambiente:</strong> Formação Técnica / Desenvolvimento de Sistemas</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="rodape">
+        <div class="container">
+            <p>Desenvolvido no CentroWEG • SENAI Jaraguá do Sul - SC</p>
+        </div>
+    </footer>
+
+</body>
+</html>
